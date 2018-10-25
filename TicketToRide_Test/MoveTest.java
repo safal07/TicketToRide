@@ -40,15 +40,18 @@ public class MoveTest {
 	}
 	
 	
+	
 	//This is a failing test condition
+	//We are claiming first city with not enough common cards
 	@Test
 	public void testWrongClaimMove() {
-		//NEED TO TEST
+		assertFalse(move.claimCity(b, p, c1, cityToClaim));
 	}
 	
+	//This is a passing test condition
+	//We are claiming first city with enough common cards
 	@Test
 	public void testRightClaimMove() {
-		//NEED TO TEST
+		assertTrue(move.claimCity(b, p, c2, cityToClaim));
 	}
-
 }

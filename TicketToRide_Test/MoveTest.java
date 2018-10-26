@@ -54,4 +54,11 @@ public class MoveTest {
 	public void testRightClaimMove() {
 		assertTrue(move.claimCity(b, p, c2, cityToClaim));
 	}
+	//this test is the player has turn
+        @Test
+        public void testPlayerTurn()
+        {
+            p.switchTurn();
+            assertFalse(p.hasTurn());
+        }
 }

@@ -6,11 +6,13 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Board {
 	private Card[] trainDeck = new Card[20];
 	private Card[] destinationDeck = new Card[6];
+	private Track[] tracks = new Track[45];
+	private Card[] faceUpCards = new Card[5];
 	private int topTrainCardIndex;
 	private int topDestinationCardIndex;
 	
 	//constructor initializes the trainDeck and destinationDeck
-	Board(){
+	public Board(){
 		topTrainCardIndex = 0;
 		topDestinationCardIndex = 0;
 		//stores the train color
@@ -23,18 +25,39 @@ public class Board {
 		}
 		
 		//stores destination name
-		String[] destinationName = new String[]{"SanFrancisco-Denver", "SaltLake - Washington", "Boston-NewOrleans", 
-												"Seattle-Toronto", "NewYork - Houston", "Washington-SanFrancisco"};
+		String[] destinationName = new String[]{"SanFrancisco-Denver", "SaltLake-Washington", "Boston-NewOrleans", 
+												"Seattle-Toronto", "NewYork-Houston", "Washington-SanFrancisco"};
 		//stores destination values
-		int[] destinationValues = new int[]{4, 3, 2, 6, 2, 5};
+		int[] destinationValues = new int[]{40, 32, 12, 16, 42, 25};
 		
 		//creates a deck of destination cards
 		for(int j = 0; j < destinationDeck.length; j++) {
 			destinationDeck[j] = new Card("DESTINATION", destinationName[j], destinationValues[j]);
 		}
 		
+		String[] cities = new String[]{"SanFrancisco", "Denver", "SaltLake", "Washington", "Boston", "NewOrleans", 
+				"Seattle", "Toronto", "NewYork", "Houston"};
+		int i = 0;
+		for(int j = 0; j < cities.length-1; j++) {
+			for(int k = j+1; k < cities.length; k++) {
+				Random rand = ThreadLocalRandom.current();		
+				tracks[i++] = new Track(cities[j], cities[k], rand.nextInt(11) + 1);	
+			}
+		}
+		
 	}
 	
+	public void turnFaceUpCard() {
+		faceUpCards = fetchCard("TRAIN", faceUpCards.length);
+	}
+	
+	public void setOneFaceupCard(Card newCard, int index) {
+		this.faceUpCards[index] = newCard;
+	}
+	
+	public Card getOneFaceupCard(int index) {
+		return this.faceUpCards[index];
+	}
 	//picks specified number of cards from the top of deck.
 	public Card[] fetchCard(String type, int howMany) {
 		Card[] pickedCard = new Card[howMany];
@@ -82,8 +105,36 @@ public class Board {
 		return this.destinationDeck;
 	}
 	
+	public Card[] getFaceupCards() {
+		return this.faceUpCards;
+	}
+	
+	public Track[] getTracks() {
+		return this.tracks;
+	}
+	
+	public int getTopTrainCardIndex() {
+		return this.topTrainCardIndex;
+	}
+	
+	public void setTopTrainCardIndex(int top) {
+		this.topTrainCardIndex = top;
+	}
+	
+	public void printFaceupCards() {
+		System.out.println("FACE UP CARDS");
+		for (Card c: faceUpCards) {
+			System.out.print(c.getName() + " |");
+		}
+	}
 	//set display of the board
 	public void displayBoard(){
+		int i = 0;
+		for (Track t: tracks) {
+			System.out.println("Track #" + i++);
+			System.out.println(t);
+		}
+		
 	}
 
 

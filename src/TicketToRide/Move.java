@@ -1,42 +1,14 @@
 package TicketToRide;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Move {
-	Scanner sin = new Scanner(System.in);
+	
 	
 	public Move(){
 		
 	}
 	
-	public void makeMove(Board b, Player activePlayer, String  moveChoice) {
-		switch(moveChoice) {
-		case "C":
-			boolean claimMade;
-			do {
-				System.out.println("Enter the track# for the cities you want to claim");
-				int trackNum = sin.nextInt();
-				claimMade = claimCity(b, activePlayer, trackNum);
-		
-			} while (!claimMade);
-			break;
-		case "T":
-			//activePlayer.addTrainCards(fetchTrainCards(b, activePlayer));
-			//REMOVE THE LAST PARAMETER
-			fetchTrainCards(b, activePlayer, "DECK", 1);
-			break;
-		case "D":
-			//m.fetchDestinationCards(activePlayer, c);
-			break;
-		case "Q":
-			System.out.println("GAME OVER");
-			break;
-		default:
-			System.out.println("Wrong option: ");
-			break;
-		}
-	}
 	
 	//comment for console view of game.
 	public void fetchTrainCards(Board b, Player activePlayer, String type, int _indexChoice){
@@ -54,37 +26,6 @@ public class Move {
 			}
 	
 	}
-	
-	//uncomment for console view of game
-	
-//	public void fetchTrainCards(Board b, Player activePlayer){
-//		int indexChoice;
-//		String cardChoice;
-//		int i = 0;
-//		System.out.println("You can fetch two train cards from top of deck or face up cards.");
-//		do {
-//			System.out.println("\nFor your first card, choose from Deck(D) OR choose from Faceup(F).");
-//			cardChoice = sin.next();
-//			if(cardChoice.equals("D")) {
-//				activePlayer.addTrainCard(b.fetchCard("TRAIN" ,1)[0]);
-//				System.out.println("Your hand updated");
-//				activePlayer.printPlayer();
-//				i++;
-//			}
-//			if(cardChoice.equals("F")) {
-//				System.out.println("Pick the index of card from faceup");
-//				indexChoice = sin.nextInt();
-//				activePlayer.addTrainCard(b.getOneFaceupCard(indexChoice));
-//				b.setOneFaceupCard(b.fetchCard("TRAIN" ,1)[0], indexChoice);
-//				System.out.print("UPDATED ");
-//				activePlayer.printTrainCards();
-//				System.out.print("\nUPDATED ");
-//				b.printFaceupCards();
-//				i++;
-//			}
-//		} while (i<2);
-//		
-//	}
 	
 	public Card mostCommonCard(Card[] _trainHand) {
 		Card[] trainHand = _trainHand;
@@ -141,6 +82,18 @@ public class Move {
 		System.out.println("ERROR: City could not be claimed!");
 		return false;
 	}
-
+	
+	
+	//returns the winner
+	public Player findWinner(Player p1, Player p2) {
+		Player winner;
+		int p1Score = p1.getScore().getValue();
+		int p2Score = p2.getScore().getValue();
+		
+		if (p1Score > p2Score) winner = p1;
+		else if(p1Score < p2Score) winner = p2;
+		else winner = null;
+		return winner;	
+	}
 	
 }

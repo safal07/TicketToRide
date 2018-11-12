@@ -8,8 +8,7 @@ public class Player {
 	ArrayList<Card> trainCards = new ArrayList<Card>();
 	Score score;
 	boolean turn;
-	int[] removedTrainCards;
-	
+
 	//constructor
 	public Player(String name, Card[] _trainCards, Card[] _destinationCards){
 		this.name = name;
@@ -57,20 +56,14 @@ public class Player {
 	
 	
 	public void removeTrainCards(ArrayList<Integer> cardIndexes, int num) {
-		removedTrainCards = new int[num];
 		int indexDecrement = 0;
 		for(int i = 0; i < num; i++) {
 			int index = cardIndexes.get(i);
 			this.trainCards.remove(index-indexDecrement);
-			removedTrainCards[i] = index;
 			indexDecrement++;
 		}
 	}
-	
-	public int[] getRemovedTrainCards() {
-		return this.removedTrainCards;
-	}
-	
+
 	//returns the turn
 	public boolean hasTurn() {
 		return this.turn;

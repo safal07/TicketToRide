@@ -52,7 +52,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		Scene scene = new Scene(boardLayout, 1120, 1400);
 		
 		window.setScene(scene);
-		window.setTitle("Heptalion");
+		window.setTitle("Ticket To Ride");
 		window.show();	
 	}
 	
